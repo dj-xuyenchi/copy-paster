@@ -1,27 +1,28 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!--
-  Created by IntelliJ IDEA.
-  User: quanganhdo
-  Date: 22/11/24
-  Time: 23:14
--->
-<!DOCTYPE html
-        PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-
+<!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://java.sun.com/jsf/html">
-
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
 <h:head>
-    <title>Title</title>
+    <title>JSF Example</title>
 </h:head>
-
 <h:body>
-    <h:form id="form">
-        <h:outputLabel>Xin chào: #{textController.name}!</h:outputLabel>
-        <h:button >Update</h:button>
-        <h:inputTextarea style="width: 100%" rows="100" value="#{textController.data}"/>
+    <h:form id="frm">
+        <h:outputLabel for="userInput" value="Xin chào: "/>
+        <p:inputText id="userInput" value="#{textController.user}" style="margin-bottom: 12px">
+            <p:ajax event="change" update="@form"/>
+        </p:inputText>
+        <h:commandButton value="Get" action="#{textController.get}" style="margin-left: 8px "/>
+        <h:outputLabel for="sendToInput" value="Gửi đến: " style="margin-left: 12px"/>
+        <p:inputText id="sendToInput" value="#{textController.sendTo}" style="margin-bottom: 12px">
+            <p:ajax event="change" update="@form"/>
+        </p:inputText>
+
+        <h:commandButton value="Gửi" action="#{textController.send}" style="margin-left: 8px"/>
+
+        <p:inputTextarea id="messageArea" value="#{textController.message}" rows="100"
+                         style="width: 98%; margin-top: 24px">
+            <p:ajax event="change" listener="#{textController.onValueChange}" process="@this" update="@form"/>
+        </p:inputTextarea>
     </h:form>
 </h:body>
-
 </html>
